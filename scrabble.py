@@ -1,8 +1,5 @@
 from __future__ import print_function
-### I WILL REFERENCE EVERYTHING I HAVE FOUND ONLINE
-### my funtions are running together the parameters need to match through
-###out the game inorder for the board to correspond to players input
-import sys
+import random 
 def print_board():
     board = [4, 0, 0, 1, 0, 0, 0, 4, 0, 0, 0, 1, 0, 0, 4, 5,
              0, 3, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 3, 0, 5,
@@ -36,7 +33,24 @@ def print_board():
             print(' DL', end=' ')
         #print 'DL',
         elif number == 0:
-            print('___', end='  '), ####WHY IS IT NOT PRINTING ON SCALE(Also found online)
+            print('___', end='  '),
+
+def begin_scrabble_draw():
+    import random
+    x =({"a": 1, "c": 3, "b": 3, "e": 1, "d": 2, "g": 2, 
+         "f": 5, "i": 1, "h": 4, "k": 5, "j": 8, "m": 2, 
+         "l": 1, "o": 1, "n": 1, "q": 10, "p": 4, "s": 1, 
+         "r": 1, "u": 1, "t": 1, "w": 5, "v": 4, "y": 5, 
+         "x": 10, "z": 10})
+    return random.choice(x)###I need this to generate 7 random letters
+
+  
+def scrabble_score(word):
+    total = []
+    for letter in word:
+        total.append(score[letter.lower()])
+    return sum(total)
+print scrabble_score("word")
 
 def count_letters(word):
   count = {} 
@@ -46,23 +60,11 @@ def count_letters(word):
   return count 
 
 
-def scrabble_score(word):
-    total = []
-    for letter in word:
-        total.append(score[letter.lower()])
-    return sum(total)
 
 def spellable_word(word, rack):
     valid_words = []
-    words = word_reader('/usr/share/dict/words')
-    scored =  ((score_word(word), word) for word in words if set(word).issubset(set(rack)) and len(word) > 1 and spellable(word, rack))
-    word_count = count_letters(word)
-    rack_count  = count_letters(rack)
-    return all([word_count[letter] <= rack_count[letter] for letter in word])
-
-def word_reader(filename):
-  ### returns an iterator
-  return (word.strip() for word in  open(filename)) 
+  
+ 
 
 
 score = {"a": 1, "c": 3, "b": 3, "e": 1, "d": 2, "g": 2, 
